@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nombre 9. — Lectures numérologique personnalisées</title>
+  <meta name="description" content="Nombre 9. propose des lectures numérologique personnalisées pour comprendre ton identité, tes forces et tes cycles de vie. Éclaire sans prédire." />
+  <meta property="og:title" content="Nombre 9. — Éclaire sans prédire." />
+  <meta property="og:description" content="Des lectures numérologique modernes, claires et bienveillantes. Portrait, Révélation ou Dialogue — choisis ton format." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nombre9.fr" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAF8F5;
+      --text: #1A1A1A;
+      --accent: #C4704F;
+      --secondary: #E8E4DE;
+      --white: #FFFFFF;
+      --grey-light: #9A958E;
+      --serif: 'DM Serif Display', serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    nav.scrolled {
+      background: var(--bg);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--text);
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-text { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .hero-text h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .hero-text p {
+      font-size: 1.05rem;
+      color: var(--text);
+      opacity: 0.65;
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--text);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 0.875rem 2rem;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+    .hero-deco {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-deco-9 {
+      font-family: var(--serif);
+      font-size: clamp(12rem, 20vw, 22rem);
+      color: var(--secondary);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+      font-style: italic;
+    }
+
+    /* ── SECTIONS SHARED ── */
+    section { padding: 6rem 2.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-weight: 300;
+      max-width: 480px;
+    }
+
+    /* ── APPROCHE ── */
+    #approche { background: var(--secondary); }
+    .approche-header { margin-bottom: 3.5rem; }
+    .approche-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+    .approche-card { }
+    .approche-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 1.25rem;
+      color: var(--accent);
+    }
+    .approche-card h3 {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .approche-card p {
+      font-size: 0.9375rem;
+      color: var(--text);
+      opacity: 0.65;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── OFFRES ── */
+    #offres { background: var(--bg); }
+    .offres-header { margin-bottom: 3.5rem; }
+    .offres-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .offre-card {
+      background: var(--white);
+      padding: 2.25rem;
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .offre-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+    }
+    .offre-card.highlighted {
+      border-top: 3px solid var(--accent);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      transform: translateY(-6px);
+    }
+    .offre-card.highlighted:hover {
+      transform: translateY(-10px);
+    }
+    .offre-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .offre-name {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+    .offre-sub {
+      font-size: 0.875rem;
+      color: var(--text);
+      opacity: 0.55;
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+    .offre-price {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.75rem;
+    }
+    .offre-price span {
+      font-family: var(--sans);
+      font-size: 1rem;
+      opacity: 0.5;
+      font-weight: 300;
+    }
+    .offre-divider {
+      height: 1px;
+      background: rgba(0,0,0,0.07);
+      margin-bottom: 1.5rem;
+    }
+    .offre-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    .offre-list li {
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--text);
+      padding: 0.4rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+      opacity: 0.75;
+    }
+    .offre-list li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+    .btn-offre {
+      display: block;
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 0.875rem 1.5rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: 1.5px solid var(--text);
+      color: var(--text);
+      background: transparent;
+      cursor: pointer;
+    }
+    .btn-offre:hover, .highlighted .btn-offre {
+      background: var(--text);
+      color: var(--white);
+    }
+    .highlighted .btn-offre:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .offres-disclaimer {
+      margin-top: 2.5rem;
+      font-size: 0.8125rem;
+      font-style: italic;
+      color: var(--text);
+      opacity: 0.4;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--secondary); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-photo {
+      aspect-ratio: 3/4;
+      background: var(--secondary);
+      border: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .about-photo-placeholder {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--text);
+      opacity: 0.3;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .about-content h2 { margin-bottom: 1.5rem; }
+    .about-content p {
+      font-size: 1rem;
+      color: var(--text);
+      opacity: 0.7;
+      font-weight: 300;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .about-meta {
+      font-size: 0.8125rem;
+      color: var(--text);
+      opacity: 0.45;
+      letter-spacing: 0.04em;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      padding-top: 1.25rem;
+    }
+
+    /* ── FAQ ── */
+    #faq { background: var(--bg); }
+    .faq-header { margin-bottom: 3rem; }
+    .faq-list { max-width: 680px; }
+    .faq-item {
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 1.375rem 0;
+      font-family: var(--sans);
+      font-size: 0.9375rem;
+      font-weight: 400;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--accent); }
+    .faq-question.open { color: var(--accent); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .faq-icon::before, .faq-icon::after {
+      content: '';
+      position: absolute;
+      background: currentColor;
+      border-radius: 2px;
+    }
+    .faq-icon::before { width: 18px; height: 1.5px; top: 50%; left: 0; transform: translateY(-50%); }
+    .faq-icon::after { width: 1.5px; height: 18px; left: 50%; top: 0; transform: translateX(-50%); transition: transform 0.3s ease, opacity 0.3s ease; }
+    .faq-question.open .faq-icon::after { transform: translateX(-50%) rotate(90deg); opacity: 0; }
+    .faq-answer {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+    }
+    .faq-answer.open { max-height: 300px; }
+    .faq-answer p {
+      padding-bottom: 1.375rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      opacity: 0.62;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--secondary); }
+    .contact-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner .section-title { margin-bottom: 1rem; }
+    .contact-intro {
+      font-size: 1rem;
+      color: var(--text);
+      opacity: 0.6;
+      font-weight: 300;
+      margin-bottom: 3rem;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.9rem 1.1rem;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.1);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--text);
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .contact-form input:focus,
+    .contact-form select:focus,
+    .contact-form textarea:focus { border-color: var(--accent); }
+    .contact-form textarea { resize: vertical; min-height: 100px; }
+    .contact-form select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231A1A1A' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .btn-submit {
+      background: var(--text);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 1rem 2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.25s;
+      width: 100%;
+    }
+    .btn-submit:hover { background: var(--accent); }
+    .contact-alt {
+      font-size: 0.8125rem;
+      color: var(--text);
+      opacity: 0.45;
+    }
+    .contact-alt a {
+      color: var(--text);
+      opacity: 1;
+      font-weight: 400;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--text);
+      color: var(--white);
+      padding: 2rem 2.5rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      opacity: 0.4;
+      font-weight: 300;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--white);
+      opacity: 0.4;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .footer-links a:hover { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-deco { display: none; }
+      .approche-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .offres-grid { grid-template-columns: 1fr; }
+      .offre-card.highlighted { transform: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photo { aspect-ratio: 4/3; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 1.1rem 1.25rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 4rem 1.25rem; }
+      #hero { padding: 7rem 1.25rem 3rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Nombre 9.</a>
+    <ul class="nav-links">
+      <li><a href="#approche">Approche</a></li>
+      <li><a href="#offres">Offres</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#approche" class="mobile-link">Approche</a>
+    <a href="#offres" class="mobile-link">Offres</a>
+    <a href="#about" class="mobile-link">À propos</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Numérologie moderne</p>
+        <h1>Tes nombres révèlent qui tu es déjà.</h1>
+        <p>Nombre 9. propose des lectures numérologique personnalisées pour t'aider à comprendre ton identité, tes forces et tes cycles de vie.</p>
+        <a href="#offres" class="btn-primary">Découvrir mes offres</a>
+      </div>
+      <div class="hero-deco">
+        <span class="hero-deco-9">9</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROCHE -->
+  <section id="approche">
+    <div class="section-inner">
+      <div class="approche-header">
+        <p class="section-label">Comment ça fonctionne</p>
+        <h2 class="section-title">Notre approche</h2>
+      </div>
+      <div class="approche-grid">
+        <div class="approche-card">
+          <svg class="approche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <h3>Clarté</h3>
+          <p>Pas de prédictions, pas de mystère. Des analyses précises basées sur tes chiffres.</p>
+        </div>
+        <div class="approche-card">
+          <svg class="approche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          <h3>Personnalisation</h3>
+          <p>Chaque lecture est unique, construite à partir de ton prénom, ton nom et ta date de naissance.</p>
+        </div>
+        <div class="approche-card">
+          <svg class="approche-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <h3>Bienveillance</h3>
+          <p>Un espace sans jugement pour explorer qui tu es et où tu vas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFRES -->
+  <section id="offres">
+    <div class="section-inner">
+      <div class="offres-header">
+        <p class="section-label">Les lectures</p>
+        <h2 class="section-title">Tes lectures</h2>
+        <p class="section-subtitle">Choisis le format qui te correspond.</p>
+      </div>
+      <div class="offres-grid">
+
+        <!-- Portrait -->
+        <div class="offre-card">
+          <p class="offre-name">Portrait</p>
+          <p class="offre-sub">Découvrir qui tu es</p>
+          <p class="offre-price">79€</p>
+          <div class="offre-divider"></div>
+          <ul class="offre-list">
+            <li>Analyse complète de ton identité numérique</li>
+            <li>Tes 4 nombres piliers décryptés</li>
+            <li>Tes forces, défis et cycles de vie</li>
+            <li>Livraison en PDF soigné sous 5 jours</li>
+          </ul>
+          <a href="#contact" class="btn-offre">Commander mon Portrait</a>
+        </div>
+
+        <!-- Révélation -->
+        <div class="offre-card highlighted">
+          <span class="offre-badge">Le plus complet</span>
+          <p class="offre-name">Révélation</p>
+          <p class="offre-sub">Entendre tes nombres</p>
+          <p class="offre-price">159€</p>
+          <div class="offre-divider"></div>
+          <ul class="offre-list">
+            <li>Tout le contenu du Portrait</li>
+            <li>Enregistrement audio explicatif (20–30 min)</li>
+            <li>Ma voix pour te guider dans ta lecture</li>
+            <li>Livraison PDF + audio sous 7 jours</li>
+          </ul>
+          <a href="#contact" class="btn-offre">Commander ma Révélation</a>
+        </div>
+
+        <!-- Dialogue -->
+        <div class="offre-card">
+          <p class="offre-name">Dialogue</p>
+          <p class="offre-sub">Explorer ensemble</p>
+          <p class="offre-price">250€</p>
+          <div class="offre-divider"></div>
+          <ul class="offre-list">
+            <li>Tout le contenu de la Révélation</li>
+            <li>1h de consultation en visio avec moi</li>
+            <li>Questions libres, approfondissement personnalisé</li>
+            <li>Suivi possible après la séance</li>
+          </ul>
+          <a href="#contact" class="btn-offre">Réserver mon Dialogue</a>
+        </div>
+
+      </div>
+      <p class="offres-disclaimer">Ces lectures ne constituent pas un avis médical, psychologique ou financier. Obligation de moyens, jamais de résultats.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-photo">
+          <span class="about-photo-placeholder">Votre photo</span>
+        </div>
+        <div class="about-content">
+          <p class="section-label">Le fondateur</p>
+          <h2 class="section-title">Derrière les nombres</h2>
+          <p>Je m'appelle Paul. Je pratique la numérologie depuis 2023, mais ma première lecture remonte à 2016 — et elle m'a profondément transformé. Depuis, j'ai fait de la numérologie un outil de développement personnel, débarrassé de ses clichés ésotériques.</p>
+          <p>Nombre 9. est né de cette conviction : tes nombres méritent d'être lus avec clarté, rigueur et bienveillance.</p>
+          <p class="about-meta">Basé à Toulouse &nbsp;·&nbsp; Lectures en ligne &nbsp;·&nbsp; Réponse sous 48h</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="section-inner">
+      <div class="faq-header">
+        <p class="section-label">Tu as des questions</p>
+        <h2 class="section-title">Questions fréquentes</h2>
+      </div>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question">
+            La numérologie peut-elle prédire mon avenir ?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Non. Nombre 9. ne prédit rien. Les nombres révèlent des tendances, des potentiels et des cycles — mais ton libre arbitre reste total.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            De quoi ai-je besoin pour commander ?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Uniquement ton prénom, ton nom et ta date de naissance complète. Rien de plus.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Sous quel délai je reçois ma lecture ?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Entre 5 et 7 jours ouvrés selon l'offre choisie. Tu reçois ton PDF (et ton audio) par email.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Quelle est la différence entre Portrait et Révélation ?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Le Portrait est une analyse écrite complète. La Révélation ajoute un enregistrement audio où je lis et commente ta lecture à voix haute — une dimension plus intime et vivante.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            Et si je veux aller plus loin après ma lecture ?
+            <span class="faq-icon"></span>
+          </button>
+          <div class="faq-answer">
+            <p>Le Dialogue est fait pour ça. Et pour ceux qui souhaitent aller encore plus loin, il existe <strong>Neuf. Manuscrits</strong> — un manuscrit artisanal unique, fabriqué à Toulouse. Sur demande uniquement.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-inner">
+        <p class="section-label">Commençons</p>
+        <h2 class="section-title">Prêt·e à lire tes nombres ?</h2>
+        <p class="contact-intro">Remplis ce formulaire et je reviens vers toi sous 48h.</p>
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <input type="text" name="name" placeholder="Ton prénom et nom" required />
+          <input type="email" name="email" placeholder="Ton adresse email" required />
+          <select name="offre" required>
+            <option value="" disabled selected>Quelle lecture t'intéresse ?</option>
+            <option value="portrait">Portrait — 79€</option>
+            <option value="revelation">Révélation — 159€</option>
+            <option value="dialogue">Dialogue — 250€</option>
+          </select>
+          <textarea name="message" placeholder="Un message (facultatif)"></textarea>
+          <button type="submit" class="btn-submit">Commencer ma lecture</button>
+        </form>
+        <p class="contact-alt">
+          Ou directement par email : <a href="mailto:contact@nombre9.fr">contact@nombre9.fr</a><br />
+          Instagram : <a href="https://instagram.com/nombre9" target="_blank">@nombre9</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a href="#hero" class="footer-logo">Nombre 9.</a>
+      <span class="footer-copy">© 2026 — Micro-entreprise</span>
+      <div class="footer-links">
+        <a href="#">Mentions légales</a>
+        <a href="#">CGV</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky nav
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling;
+        const isOpen = btn.classList.contains('open');
+        document.querySelectorAll('.faq-question').forEach(b => {
+          b.classList.remove('open');
+          b.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          btn.classList.add('open');
+          answer.classList.add('open');
+        }
+      });
+    });
+
+    // Form submit placeholder
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      btn.textContent = 'Message envoyé ✓';
+      btn.style.background = '#5a8a6a';
+      setTimeout(() => {
+        btn.textContent = 'Commencer ma lecture';
+        btn.style.background = '';
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
